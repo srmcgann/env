@@ -1111,11 +1111,11 @@
           isText=s=>s!=0&&!+s
           
           toggle = false
-          curTex = ''
+          curtex = ''
           if(window.location.href.indexOf('env=')!=-1) curtex = +window.location.href.split('env=')[1].split('&')[0]
           customTex = ''
-          if(isText(curTex)){
-            customTex = curTex
+          if(isText(curtex)){
+            customTex = curtex
           }else{
             curtex = curtex == '' || curtex != 0 && ! +curtex ? 13 : curtex
           }
