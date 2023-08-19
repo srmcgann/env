@@ -1079,8 +1079,8 @@
             if(typeof base_latLongSphere == 'undefined'){
               base_latLongSphere = latLongSphere(size,rw,cl)
             }
-            return Array(latlongImgs.length).fill().map((obj, idx) => {
-              texture = latlongImgs[idx].img
+            
+            processSphere = texture => {
               bctx.drawImage(texture,0,0,buffer.width,buffer.height)
               let data = bctx.getImageData(0,0,buffer.width,buffer.height)
               a = []
@@ -1097,15 +1097,26 @@
                 })
               })
               return a
+            }
+            
+            let ret = Array(latlongImgs.length).fill().map((obj, idx) => {
+              return processSphere(latlongImgs[idx].img)
             })
+            if(customTex){
+              ret = [...ret, processSphere(customTex)]
+            }
+            return ret
           }
           
           isText=s=>s!=0&&!+s
           
           toggle = false
           if(window.location.href.indexOf('env=')!=-1) curtex = +window.location.href.split('env=')[1].split('&')[0]
-          if(!curtex || !isText(curTex)){
-            curtex = curtex==''||curtex!=0&&!+curtex ? 13 : curtex
+          customTex = ''
+          if(isText(curTex)){
+            customTex = curTex
+          }else{
+            curtex = curtex == '' || curtex != 0 && ! +curtex ? 13 : curtex
           }
           x.fillRect(0,0,c.width=1920/4,c.height=1080/4)
         }
