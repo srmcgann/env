@@ -1052,7 +1052,30 @@
             return [X,Y,Z]
           })
           
+
+          isText=s=>s!=0&&!+s
+          
+          toggle = false
+          curtex = ''
+          if(window.location.href.indexOf('env=')!=-1) curtex = +window.location.href.split('env=')[1].split('&')[0]
+          customTex = ''
+          if(isText(curtex)){
+            customTex = curtex
+          }else{
+            curtex = curtex == '' || curtex != 0 && ! +curtex ? 13 : curtex
+          }
+
           latlongsLoaded = false
+
+          if(customTex){
+            customResource = {img: new Image(), loaded: false}
+            customResource.img.onload = () => {
+              customResource.loaded = true
+              if(latlongImgs.filter(v=>v.loaded).length == 15 && (!customTex || customResource.loaded)) latlongsLoaded = true
+            }
+            customResource.img.src = customTex
+          }
+          
           latlongImgs = []
           Array(16).fill().map((v,i) => {
             if(i){
@@ -1060,7 +1083,7 @@
               a.img.onload = () => {
                 a.loaded = true
                 setTimeout(()=>{
-                  if(latlongImgs.filter(v=>v.loaded).length == 15) latlongsLoaded = true
+                  if(latlongImgs.filter(v=>v.loaded).length == 15 && (!customTex || customResource.loaded)) latlongsLoaded = true
                   if(latlongsLoaded) console.log('latlongs loaded.')
                 }, 0)
               }
@@ -1069,7 +1092,7 @@
             }
           })
           
-          async function loadLatLongObjs(size, resolution){
+          loadLatLongObjs = (size, resolution) => {
             let cl = resolution|0
             let rw = resolution/1.7777777778|0
             let buffer = document.createElement('canvas')
@@ -1080,7 +1103,7 @@
               base_latLongSphere = latLongSphere(size,rw,cl)
             }
             
-            async function processSphere(texture){
+            processSphere = (texture) => {
               bctx.drawImage(texture,0,0,buffer.width,buffer.height)
               let data = bctx.getImageData(0,0,buffer.width,buffer.height)
               a = []
@@ -1103,26 +1126,11 @@
               return processSphere(latlongImgs[idx].img)
             })
             if(customTex){
-              let resource = new Image()
-              resource.onload = async function (){
-                ret = [...ret, await processSphere(resource)]
-              }
-              resource.src = customTex
+              ret = [...ret, processSphere(customResource)]
             }
             return ret
           }
           
-          isText=s=>s!=0&&!+s
-          
-          toggle = false
-          curtex = ''
-          if(window.location.href.indexOf('env=')!=-1) curtex = +window.location.href.split('env=')[1].split('&')[0]
-          customTex = ''
-          if(isText(curtex)){
-            customTex = curtex
-          }else{
-            curtex = curtex == '' || curtex != 0 && ! +curtex ? 13 : curtex
-          }
           x.fillRect(0,0,c.width=1920/4,c.height=1080/4)
         }
 
@@ -1131,7 +1139,7 @@
         Rl=S(t/6)/4, Pt=-.3+S(t/2), Yw = -t/4
 
         if(latlongsLoaded && !((t*60|0)%(60+C(t/3)*40|0))){
-          if(typeof latLongObjs == 'undefined') latLongObjs = await loadLatLongObjs(ls___, 200)
+          if(typeof latLongObjs == 'undefined') latLongObjs = loadLatLongObjs(ls___, 100)
           //curtex++
           obj = latLongObjs[curtex%latlongImgs.length]
         }
@@ -1186,7 +1194,6 @@
           elip = '.'.repeat((t*10|0)%20)
           x.fillText(elip+'loading'+elip, c.width/2, c.height/2)
         }
-
         
         t+=1/60
         requestAnimationFrame(Draw)
