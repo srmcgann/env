@@ -1141,7 +1141,7 @@
         if(latlongsLoaded && !((t*60|0)%(60+C(t/3)*40|0))){
           if(typeof latLongObjs == 'undefined') latLongObjs = loadLatLongObjs(ls___, 100)
           //curtex++
-          obj = latLongObjs[curtex%latlongImgs.length]
+          obj = latLongObjs[customTex ? latLongObjs.length - 1: curtex%latlongImgs.length]
         }
 
         //if(!((t*60|0)%120)) toggle = !toggle
