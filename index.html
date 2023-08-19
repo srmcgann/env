@@ -1104,8 +1104,8 @@
             })
             if(customTex){
               let resource = new Image()
-              resource.onload = () => {
-                ret = [...ret, processSphere(resource)]
+              resource.onload = async function (){
+                ret = [...ret, await processSphere(resource)]
               }
               resource.src = customTex
             }
