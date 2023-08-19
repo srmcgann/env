@@ -1057,7 +1057,7 @@
           
           toggle = false
           curtex = ''
-          if(window.location.href.indexOf('env=')!=-1) curtex = +window.location.href.split('env=')[1].split('&')[0]
+          if(window.location.href.indexOf('env=')!=-1) curtex = window.location.href.split('env=')[1].split('&')[0]
           customTex = ''
           if(isText(curtex)){
             customTex = curtex
@@ -1125,6 +1125,7 @@
             let ret = Array(latlongImgs.length).fill().map((obj, idx) => {
               return processSphere(latlongImgs[idx].img)
             })
+            
             if(customTex){
               ret = [...ret, processSphere(customResource)]
             }
@@ -1141,6 +1142,7 @@
         if(latlongsLoaded && !((t*60|0)%(60+C(t/3)*40|0))){
           if(typeof latLongObjs == 'undefined') latLongObjs = loadLatLongObjs(ls___, 100)
           //curtex++
+          console.log(latLongObjs)
           obj = latLongObjs[customTex ? latLongObjs.length - 1: curtex%latlongImgs.length]
         }
 
