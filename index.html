@@ -1100,9 +1100,13 @@
             })
           }
           
+          isText=s=>s!=0&&!+s
+          
           toggle = false
           if(window.location.href.indexOf('env=')!=-1) curtex = +window.location.href.split('env=')[1].split('&')[0]
-          curtex = curtex==''||curtex!=0&&!+curtex ? 13 : curtex
+          if(!curtex || !isText(curTex)){
+            curtex = curtex==''||curtex!=0&&!+curtex ? 13 : curtex
+          }
           x.fillRect(0,0,c.width=1920/4,c.height=1080/4)
         }
 
