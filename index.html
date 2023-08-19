@@ -1069,7 +1069,7 @@
             }
           })
           
-          loadLatLongObjs = (size, resolution) => {
+          async function loadLatLongObjs(size, resolution){
             let cl = resolution|0
             let rw = resolution/1.7777777778|0
             let buffer = document.createElement('canvas')
@@ -1080,7 +1080,7 @@
               base_latLongSphere = latLongSphere(size,rw,cl)
             }
             
-            processSphere = texture => {
+            async function processSphere(texture){
               bctx.drawImage(texture,0,0,buffer.width,buffer.height)
               let data = bctx.getImageData(0,0,buffer.width,buffer.height)
               a = []
@@ -1103,7 +1103,11 @@
               return processSphere(latlongImgs[idx].img)
             })
             if(customTex){
-              ret = [...ret, processSphere(customTex)]
+              let resource = new Image()
+              resource.onload = () => {
+                ret = [...ret, await processSphere(resource)]
+              }
+              resource.src = customTex
             }
             return ret
           }
