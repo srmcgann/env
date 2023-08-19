@@ -1105,7 +1105,7 @@
             if(customTex){
               let resource = new Image()
               resource.onload = () => {
-                ret = [...ret, await processSphere(resource)]
+                ret = [...ret, processSphere(resource)]
               }
               resource.src = customTex
             }
