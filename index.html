@@ -1133,6 +1133,14 @@
           }
           
           x.fillRect(0,0,c.width=1920/4,c.height=1080/4)
+          
+          final_res = 150
+          if(location.href.indexOf('res=') != -1){
+            final_res = location.href.split('res=')[1].split('&')[0]
+          }
+          if(location.href.indexOf('resolution=') != -1){
+            final_res = location.href.split('resolution=')[1].split('&')[0]
+          }
         }
 
         ls___ = 1e6
@@ -1140,9 +1148,8 @@
         Rl=S(t/6)/4, Pt=-.3+S(t/2), Yw = -t/4
 
         if(latlongsLoaded && !((t*60|0)%(60+C(t/3)*40|0))){
-          if(typeof latLongObjs == 'undefined') latLongObjs = loadLatLongObjs(ls___, 100)
+          if(typeof latLongObjs == 'undefined') latLongObjs = loadLatLongObjs(ls___, final_res)
           //curtex++
-          console.log(latLongObjs)
           obj = latLongObjs[customTex ? latLongObjs.length - 1: curtex%latlongImgs.length]
         }
 
