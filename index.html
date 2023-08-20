@@ -1131,7 +1131,7 @@
             }
             
             processSphere = (texture) => {
-              if(mirror){
+              if(mirror || mirrorx || mirrory){
                 subBctx.drawImage(texture,0,0,subBuffer.width,subBuffer.height)
                 subdata = subBctx.getImageData(0,0,subBuffer.width,subBuffer.height)
                 l = subdata.data
@@ -1262,7 +1262,7 @@
           elip = '.'.repeat((t*10|0)%20)
           x.fillText(elip+'loading'+elip, c.width/2, c.height/2)
         }
-        
+
         t+=1/60
         requestAnimationFrame(Draw)
       }
