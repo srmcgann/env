@@ -1116,17 +1116,18 @@
                 subBctx.drawImage(texture,0,0,subBuffer.width,subBuffer.height)
                 subdata = subBctx.getImageData(0,0,subBuffer.width,subBuffer.height)
                 l = subdata.data
+                let cl2 = cl/2|0
                 Array(4).fill().map((q,j)=>{
                   b = []
                   for(i=0;i<l.length;i+=4){
                     v_=i/4|0
-                    X = v_%cl
-                    Y = v_/cl|0
+                    X = v_%cl2
+                    Y = v_/cl2|0
                     switch(j){
-                      case 0: n = Y * cl + X; break
-                      case 1: n = Y * cl + (cl - X); break
-                      case 2: n = (cl - Y * cl) + X; break
-                      case 3: n = (cl - Y * cl) + (cl - X); break
+                      case 0: n = Y * cl2 + X; break
+                      case 1: n = Y * cl2 + (cl - X); break
+                      case 2: n = (cl2 - Y * cl2) + X; break
+                      case 3: n = (cl2 - Y * cl2) + (cl2 - X); break
                     }
                     red    = l[n+0]
                     green  = l[n+1]
