@@ -1133,7 +1133,7 @@
                     alpha  = l[n+3]
                     b = [...b, red, green, blue, alpha]
                   }
-                  let tempData = subBctx.createImageData(0,0,buffer.width,buffer.height)
+                  let tempData = subBctx.createImageData(buffer.width,buffer.height)
                   tempData.data = b
                   subBctx.putImageData(tempData,0,0)
                   tx = ((j%2)-.5)*buffer.width
