@@ -1120,7 +1120,7 @@
                 subBuffer.width = buffer.width
               }
               if(mirrory || (mirror && !mirrorx && !mirrory)){
-                subBuffer.height = 1+buffer.height/2|0
+                subBuffer.height = buffer.height/2|0
               } else {
                 subBuffer.height = buffer.height
               }
@@ -1139,7 +1139,7 @@
                   for(i=0;i<l.length;i+=4){
                     v_ = i/4|0
                     X = v_%subBuffer.width
-                    Y = v_/subBuffer.width|0
+                    Y = 1+v_/subBuffer.width|0
                     switch(m){
                       case 0: n = Y * subBuffer.width + X; break
                       case 1: n = Y * subBuffer.width + (subBuffer.width - X); break
