@@ -1057,8 +1057,10 @@
           
           toggle = false
           curtex = ''
-          mirror = false
+          mirror = mirrorx = mirrory = false
           if(window.location.href.indexOf('mirror')!=-1) mirror = true
+          if(window.location.href.indexOf('mirrorx')!=-1) mirrorx = true
+          if(window.location.href.indexOf('mirrory')!=-1) mirrory = true
           if(window.location.href.indexOf('env=')!=-1) curtex = window.location.href.split('env=')[1].split('&')[0]
           customTex = ''
           if(isText(curtex)){
@@ -1107,8 +1109,21 @@
             if(mirror){
               subBuffer = document.createElement('canvas')
               subBctx = subBuffer.getContext('2d', {willReadFrequently: true})
-              subBuffer.width = buffer.width/2|0
-              subBuffer.height = buffer.height/2|0
+              let clx2, cly2
+              if(mirrorx || (mirror && !mirrorx && !mirrory)){
+                cl2x = subBuffer.width
+                subBuffer.width = buffer.width/2|0
+              } else {
+                cl2x = buffer.width
+                subBuffer.width = buffer.width
+              }
+              if(mirrory || (mirror && !mirrorx && !mirrory)){
+                cl2y = subBuffer.height
+                subBuffer.height = buffer.height/2|0
+              } else {
+                cl2y = buffer.height
+                subBuffer.height = buffer.height
+              }
             }
             
             processSphere = (texture) => {
@@ -1116,19 +1131,20 @@
                 subBctx.drawImage(texture,0,0,subBuffer.width,subBuffer.height)
                 subdata = subBctx.getImageData(0,0,subBuffer.width,subBuffer.height)
                 l = subdata.data
-                let cl2 = subBuffer.width
-                for(let m=4;m--;){
+                let sd = 4
+                if((mirrorx && !mirrory) || (mirrory && !mirrorx)) sd = 2
+                for(let m=sd;m--;){
                   b = []
                   let tempData = subBctx.createImageData(subBuffer.width, subBuffer.height)
                   for(i=0;i<l.length;i+=4){
                     v_ = i/4|0
-                    X = v_%cl2
-                    Y = v_/cl2|0
+                    X = v_%cl2x
+                    Y = v_/cl2x|0
                     switch(m){
-                      case 0: n = Y * cl2 + X; break
-                      case 1: n = Y * cl2 + (cl2 - X); break
-                      case 2: n = (subBuffer.height - Y) * cl2 + X; break
-                      case 3: n = (subBuffer.height - Y) * cl2 + (cl2 - X); break
+                      case 0: n = Y * cl2x + X; break
+                      case 1: n = Y * cl2x + (cl2x - X); break
+                      case 2: n = (subBuffer.height - Y) * cl2x + X; break
+                      case 3: n = (subBuffer.height - Y) * cl2x + (cl2x - X); break
                     }
                     n *= 4
                     tempData.data[i+0] = l[n+0]
@@ -1136,7 +1152,6 @@
                     tempData.data[i+2] = l[n+2]
                     tempData.data[i+3] = l[n+3]
                   }
-                  console.log(tempData)
                   subBctx.putImageData(tempData,0,0)
                   tx = (m%2)*buffer.width/2
                   ty = (m/2|0)*buffer.height/2
