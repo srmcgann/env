@@ -1119,6 +1119,7 @@
                 let cl2 = subBuffer.width
                 for(let m=4;m--;){
                   b = []
+                  let tempData = subBctx.createImageData(subBuffer.width, subBuffer.height)
                   for(i=0;i<l.length;i+=4){
                     v_ = i/4|0
                     X = v_%cl2
@@ -1130,10 +1131,12 @@
                       case 3: n = (subBuffer.height - Y * cl2) + (cl2 - X); break
                     }
                     n *= 4
-                    b = [...b, l[n+0], l[n+1], l[n+2], l[n+3]]
+                    tempData.data[i+0] = l[n+0]
+                    tempData.data[i+1] = l[n+1]
+                    tempData.data[i+2] = l[n+2]
+                    tempData.data[i+3] = l[n+3]
                   }
-                  let tempData = subBctx.createImageData(subBuffer.width, subBuffer.height)
-                  tempData.data = b
+                  console.log(tempData)
                   subBctx.putImageData(tempData,0,0)
                   tx = (m%2)*buffer.width/2
                   ty = (m/2|0)*buffer.height/2
