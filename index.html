@@ -1119,8 +1119,9 @@
                 Array(4).fill().map((q,j)=>{
                   b = []
                   for(i=0;i<l.length;i+=4){
-                    X = i%cl
-                    Y = i/cl|0
+                    v_=i/4|0
+                    X = v_%cl
+                    Y = v_/cl|0
                     switch(j){
                       case 0: n = Y * cl + X; break
                       case 1: n = Y * cl + (cl - X); break
