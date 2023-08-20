@@ -1116,6 +1116,7 @@
                 subBctx.drawImage(texture,0,0,subBuffer.width,subBuffer.height)
                 subdata = subBctx.getImageData(0,0,subBuffer.width,subBuffer.height)
                 l = subdata.data
+                console.log(l)
                 let cl2 = cl/2|0
                 Array(4).fill().map((q,j)=>{
                   b = []
@@ -1248,3 +1249,4 @@
   </script>
   </body>
 </html>
+
