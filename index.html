@@ -1142,9 +1142,9 @@
                     Y = v_/subBuffer.width|0
                     switch(m){
                       case 0: n = Y * subBuffer.width + X; break
-                      case 1: n = Y * subBuffer.width + (subBuffer.width - X); break
+                      case 1: n = Y * subBuffer.width + (subBuffer.width - X - 1); break
                       case 2: n = (subBuffer.height - Y - 1) * subBuffer.width + X; break
-                      case 3: n = (subBuffer.height - Y - 1) * subBuffer.width + (subBuffer.width - X); break
+                      case 3: n = (subBuffer.height - Y - 1) * subBuffer.width + (subBuffer.width - X - 1); break
                     }
                     n *= 4
                     tempData.data[i+0] = l[n+0]
