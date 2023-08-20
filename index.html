@@ -1107,8 +1107,8 @@
             if(mirror){
               subBuffer = document.createElement('canvas')
               subBctx = subBuffer.getContext('2d', {willReadFrequently: true})
-              subBuffer.width = cl/2|0
-              subBuffer.height = rw/2|0
+              subBuffer.width = buffer.width/2|0
+              subBuffer.height = buffer.height/2|0
             }
             
             processSphere = (texture) => {
@@ -1129,6 +1129,7 @@
                       case 2: n = (cl2 - Y * cl2) + X; break
                       case 3: n = (cl2 - Y * cl2) + (cl2 - X); break
                     }
+                    n*=4
                     b=[...b, l[n+0], l[n+1], l[n+2], l[n+3]]
                   }
                   let tempData = subBctx.createImageData(subBuffer.width,subBuffer.height)
