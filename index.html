@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+CTYPE html>
 <html>
   <head>
     <title>latlong viewer</title>
@@ -1153,8 +1153,8 @@
                     tempData.data[i+3] = l[n+3]
                   }
                   subBctx.putImageData(tempData,0,0)
-                  tx = (m%2)*buffer.width/2
-                  ty = (m/2|0)*buffer.height/2
+                  tx = (mirrorx || mirror) ? (m%2)*buffer.width/2 : 0
+                  ty = (mirrory || mirror) ? (m/2|0)*buffer.height/2 : 0
                   bctx.drawImage(subBuffer,tx,ty,buffer.width/2,buffer.height/2)
                 }
               } else {
@@ -1266,4 +1266,5 @@
   </script>
   </body>
 </html>
+
 
