@@ -1120,7 +1120,7 @@
                 Array(4).fill().map((q,j)=>{
                   b = []
                   for(i=0;i<l.length;i+=4){
-                    v_=i/4|0
+                    v_ = i/4|0
                     X = v_%cl2
                     Y = v_/cl2|0
                     switch(j){
@@ -1129,14 +1129,14 @@
                       case 2: n = (cl2 - Y * cl2) + X; break
                       case 3: n = (cl2 - Y * cl2) + (cl2 - X); break
                     }
-                    n*=4
-                    b=[...b, l[n+0], l[n+1], l[n+2], l[n+3]]
+                    n *= 4
+                    b = [...b, l[n+0], l[n+1], l[n+2], l[n+3]]
                   }
-                  let tempData = subBctx.createImageData(subBuffer.width,subBuffer.height)
+                  let tempData = subBctx.createImageData(subBuffer.width, subBuffer.height)
                   tempData.data = b
                   subBctx.putImageData(tempData,0,0)
-                  tx = (j%2)*buffer.width
-                  ty = (j/2|0)*buffer.height
+                  tx = (j%2)*buffer.width/2
+                  ty = (j/2|0)*buffer.height/2
                   bctx.drawImage(subBuffer,tx,ty,buffer.width/2,buffer.height/2)
                 })
               } else {
