@@ -1058,9 +1058,9 @@
           toggle = false
           curtex = ''
           mirror = mirrorx = mirrory = false
-          if(window.location.href.indexOf('mirror')!=-1) mirror = true
           if(window.location.href.indexOf('mirrorx')!=-1) mirrorx = true
           if(window.location.href.indexOf('mirrory')!=-1) mirrory = true
+          if(!mirrory && !mirrorx && window.location.href.indexOf('mirror')!=-1) mirror = true
           if(window.location.href.indexOf('env=')!=-1) curtex = window.location.href.split('env=')[1].split('&')[0]
           customTex = ''
           if(isText(curtex)){
@@ -1106,7 +1106,7 @@
             if(typeof base_latLongSphere == 'undefined'){
               base_latLongSphere = latLongSphere(size,rw,cl)
             }
-            if(mirror){
+            if(mirror || mirrorx || mirrory){
               subBuffer = document.createElement('canvas')
               subBctx = subBuffer.getContext('2d', {willReadFrequently: true})
               let clx2, cly2
