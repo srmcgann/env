@@ -1107,8 +1107,8 @@
             if(mirror){
               subBuffer = document.createElement('canvas')
               subBctx = subBuffer.getContext('2d', {willReadFrequently: true})
-              subBuffer.width = cl/4|0
-              subBuffer.height = rw/4|0
+              subBuffer.width = cl/2|0
+              subBuffer.height = rw/2|0
             }
             
             processSphere = (texture) => {
