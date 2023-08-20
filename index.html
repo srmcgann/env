@@ -1129,17 +1129,13 @@
                       case 2: n = (cl2 - Y * cl2) + X; break
                       case 3: n = (cl2 - Y * cl2) + (cl2 - X); break
                     }
-                    red    = l[n+0]
-                    green  = l[n+1]
-                    blue   = l[n+2]
-                    alpha  = l[n+3]
-                    b = [...b, red, green, blue, alpha]
+                    b=[...b, l[n+0], l[n+1], l[n+2], l[n+3]]
                   }
                   let tempData = subBctx.createImageData(subBuffer.width,subBuffer.height)
                   tempData.data = b
                   subBctx.putImageData(tempData,0,0)
-                  tx = ((j%2)-.5)*buffer.width
-                  ty = ((j/2|0)-.5)*buffer.height
+                  tx = (j%2)*buffer.width
+                  ty = (j/2|0)*buffer.height
                   bctx.drawImage(subBuffer,tx,ty,buffer.width/2,buffer.height/2)
                 })
               } else {
