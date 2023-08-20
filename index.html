@@ -1,4 +1,4 @@
-CTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>latlong viewer</title>
@@ -1097,6 +1097,10 @@ CTYPE html>
           })
           
           loadLatLongObjs = (size, resolution) => {
+          
+            console.log('mirror: ', mirror)
+            console.log('mirrorx: ', mirrorx)
+            console.log('mirrory: ', mirrory)
             let cl = resolution|0
             let rw = resolution/1.7777777778|0
             let buffer = document.createElement('canvas')
@@ -1266,5 +1270,4 @@ CTYPE html>
   </script>
   </body>
 </html>
-
 
