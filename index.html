@@ -1057,6 +1057,8 @@
           
           toggle = false
           curtex = ''
+          mirror = false
+          if(window.location.href.indexOf('mirror')!=-1) mirror = true
           if(window.location.href.indexOf('env=')!=-1) curtex = window.location.href.split('env=')[1].split('&')[0]
           customTex = ''
           if(isText(curtex)){
@@ -1102,9 +1104,45 @@
             if(typeof base_latLongSphere == 'undefined'){
               base_latLongSphere = latLongSphere(size,rw,cl)
             }
+            if(mirror){
+              subBuffer = document.createElement('canvas')
+              subBctx = subBuffer.getContext('2d', {willReadFrequently: true})
+              subBuffer.width = cl
+              subBuffer.height = rw
+            }
             
             processSphere = (texture) => {
-              bctx.drawImage(texture,0,0,buffer.width,buffer.height)
+              if(mirror){
+                subBctx.drawImage(texture,0,0,buffer.width,buffer.height)
+                subdata = subBctx.getImageData(0,0,subBuffer.width,subBuffer.height)
+                l = subdata.data
+                Array(4).fill().map((q,j)=>{
+                  b = []
+                  for(i=0;i<l.length;i+=4){
+                    X = i%cl
+                    Y = i/cl|0
+                    switch(j){
+                      case 0: n = Y * cl + X; break
+                      case 1: n = Y * cl + (cl - X); break
+                      case 2: n = (cl - Y * cl) + X; break
+                      case 3: n = (cl - Y * cl) + (cl - X); break
+                    }
+                    red    = l[n+0]
+                    green  = l[n+1]
+                    blue   = l[n+2]
+                    alpha  = l[n+3]
+                    b = [...b, red, green, blue, alpha]
+                  }
+                  let tempData = subBctx.createImageData(0,0,buffer.width,buffer.height)
+                  tempData.data = b
+                  subBctx.putImageData(tempData,0,0)
+                  tx = ((j%2)-.5)*buffer.width
+                  ty = ((j/2|0)-.5)*buffer.height
+                  bctx.drawImage(texture,tx,ty,buffer.width/2,buffer.height/2)
+                })
+              } else {
+                bctx.drawImage(texture,0,0,buffer.width,buffer.height)
+              }
               let data = bctx.getImageData(0,0,buffer.width,buffer.height)
               a = []
               base_latLongSphere.map((v,i)=>{
