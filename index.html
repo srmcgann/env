@@ -1107,13 +1107,13 @@
             if(mirror){
               subBuffer = document.createElement('canvas')
               subBctx = subBuffer.getContext('2d', {willReadFrequently: true})
-              subBuffer.width = cl
-              subBuffer.height = rw
+              subBuffer.width = cl/4|0
+              subBuffer.height = rw/4|0
             }
             
             processSphere = (texture) => {
               if(mirror){
-                subBctx.drawImage(texture,0,0,buffer.width,buffer.height)
+                subBctx.drawImage(texture,0,0,subBuffer.width,subBuffer.height)
                 subdata = subBctx.getImageData(0,0,subBuffer.width,subBuffer.height)
                 l = subdata.data
                 Array(4).fill().map((q,j)=>{
