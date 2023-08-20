@@ -1116,9 +1116,8 @@
                 subBctx.drawImage(texture,0,0,subBuffer.width,subBuffer.height)
                 subdata = subBctx.getImageData(0,0,subBuffer.width,subBuffer.height)
                 l = subdata.data
-                console.log(l)
-                let cl2 = cl/2|0
-                Array(4).fill().map((q,j)=>{
+                let cl2 = subBuffer.width
+                for(let m=4;m--;){
                   b = []
                   for(i=0;i<l.length;i+=4){
                     v_ = i/4|0
@@ -1126,9 +1125,9 @@
                     Y = v_/cl2|0
                     switch(j){
                       case 0: n = Y * cl2 + X; break
-                      case 1: n = Y * cl2 + (cl - X); break
-                      case 2: n = (cl2 - Y * cl2) + X; break
-                      case 3: n = (cl2 - Y * cl2) + (cl2 - X); break
+                      case 1: n = Y * cl2 + (cl2 - X); break
+                      case 2: n = (subBuffer.height - Y * cl2) + X; break
+                      case 3: n = (subBuffer.height - Y * cl2) + (cl2 - X); break
                     }
                     n *= 4
                     b = [...b, l[n+0], l[n+1], l[n+2], l[n+3]]
@@ -1136,10 +1135,10 @@
                   let tempData = subBctx.createImageData(subBuffer.width, subBuffer.height)
                   tempData.data = b
                   subBctx.putImageData(tempData,0,0)
-                  tx = (j%2)*buffer.width/2
-                  ty = (j/2|0)*buffer.height/2
+                  tx = (m%2)*buffer.width/2
+                  ty = (m/2|0)*buffer.height/2
                   bctx.drawImage(subBuffer,tx,ty,buffer.width/2,buffer.height/2)
-                })
+                }
               } else {
                 bctx.drawImage(texture,0,0,buffer.width,buffer.height)
               }
