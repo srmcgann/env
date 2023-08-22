@@ -1200,7 +1200,9 @@
           latlongsLoaded = false
 
           if(customTex){
+            isVid = false
             if(customTex.indexOf('mp4') != -1){
+              isVid = true
               customResource = {img: document.createElement('video'), loaded: false}
               customResource.img.oncanplay = () => {
                 customResource.img.muted = true
@@ -1349,7 +1351,7 @@
         }
 
         //if(!((t*60|0)%120)) toggle = !toggle
-        if(latlongsLoaded && typeof obj != 'undefined'){
+        if(isVid || latlongsLoaded && typeof obj != 'undefined'){
           x.fillRect(0,0,c.width=1920/4,c.height=1080/4)
           obj.map(v=>{
             x.beginPath()
