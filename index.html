@@ -1183,6 +1183,8 @@
           curtex = ''
           mirror = mirrorx = mirrory = false
           snow = false
+          playbackRate = 1
+          if(window.location.href.indexOf('playbackspeed')!=-1) playbackRate = window.location.href.split('playbackspeed=')[1].split('&')[0]
           if(window.location.href.indexOf('snow')!=-1) snow = true
           if(window.location.href.indexOf('mirrorx')!=-1) mirrorx = true
           if(window.location.href.indexOf('mirrory')!=-1) mirrory = true
@@ -1198,12 +1200,24 @@
           latlongsLoaded = false
 
           if(customTex){
-            customResource = {img: new Image(), loaded: false}
-            customResource.img.onload = () => {
-              customResource.loaded = true
-              if(latlongImgs.filter(v=>v.loaded).length == 15 && (!customTex || customResource.loaded)) latlongsLoaded = true
+            if(customTex.indexOf('mp4') != -1){
+              customResource = {img: document.createElement('video'), loaded: false}
+              customResource.img.oncanplay = () => {
+                customResource.img.muted = true
+                customResource.img.defaultPlaybackRate = customResource.img.playbackRate = playbackRate
+                customResource.img.play()
+                customResource.loaded = true
+                if(latlongImgs.filter(v=>v.loaded).length == 15 && (!customTex || customResource.loaded)) latlongsLoaded = true
+              }
+              customResource.img.src = customTex
+            } else {
+              customResource = {img: new Image(), loaded: false}
+              customResource.img.onload = () => {
+                customResource.loaded = true
+                if(latlongImgs.filter(v=>v.loaded).length == 15 && (!customTex || customResource.loaded)) latlongsLoaded = true
+              }
+              customResource.img.src = customTex
             }
-            customResource.img.src = customTex
           }
           
           latlongImgs = []
