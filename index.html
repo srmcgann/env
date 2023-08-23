@@ -1197,10 +1197,9 @@
             curtex = curtex == '' || curtex != 0 && ! +curtex ? 13 : curtex
           }
 
-          latlongsLoaded = false
-
+          isVid = latlongsLoaded = false
+          
           if(customTex){
-            isVid = false
             if(customTex.indexOf('mp4') != -1){
               isVid = true
               customResource = {img: document.createElement('video'), loaded: false}
