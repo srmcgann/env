@@ -59,17 +59,17 @@
   <script>
 
     document.fonts.onloadingdone=()=>{console.log('fonts loaded')}
-    if(location.href.indexOf('duration=")!=-1){
+    if(location.href.indexOf('duration=')!=-1){
       duration = +location.href.split('duration=')[1].split('&')[0]
     } else {
       duration = 1000*60|0
     }
-    if(location.href.indexOf('delay=")!=-1){
+    if(location.href.indexOf('delay=')!=-1){
       initialDelay = +location.href.split('delay=')[1].split('&')[0]
     } else {
       initialDelay = 1e8
     }
-    if(location.href.indexOf('playbackspeed=")!=-1){
+    if(location.href.indexOf('playbackspeed=')!=-1){
       playbackSpeed = +location.href.split('playbackspeed=')[1].split('&')[0]
     } else {
       playbackSpeed = 1
