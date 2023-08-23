@@ -1345,7 +1345,7 @@
         oX=0, oY=0, oZ=ls___/10//Math.min(ls___/1.5, Math.max(ls___/10, (.3-S(t/5))*ls___*10))
         Rl=S(t/6)/4, Pt=-.3+S(t/2), Yw = -t/4
 
-        if(latlongsLoaded && !((t*60|0)%(60+C(t/3)*40|0))){
+        if(latlongsLoaded && (isVid || !((t*60|0)%(60+C(t/3)*40|0)))){
           if(typeof latLongObjs == 'undefined') latLongObjs = loadLatLongObjs(ls___, final_res)
           //curtex++
           obj = latLongObjs[customTex ? latLongObjs.length - 1: curtex%latlongImgs.length]
