@@ -1204,7 +1204,7 @@
                 customResource.img.defaultPlaybackRate = customResource.img.playbackRate = playbackRate
                 customResource.img.play()
                 customResource.loaded = true
-                if(latlongImgs.filter(v=>v.loaded).length == 15 && (!customTex || customResource.loaded)) latlongsLoaded = true
+                if((!customTex || customResource.loaded)) latlongsLoaded = true
               }
               customResource.img.muted = true
               customResource.img.loop = true
