@@ -1220,7 +1220,7 @@
           }
           
           latlongImgs = []
-          Array(16).fill().map((v,i) => {
+          if(!isVid) Array(16).fill().map((v,i) => {
             if(i){
               let a = {img: new Image(), loaded: false}
               a.img.onload = () => {
