@@ -1236,9 +1236,6 @@
           
           loadLatLongObjs = (size, resolution) => {
           
-            console.log('mirror: ', mirror)
-            console.log('mirrorx: ', mirrorx)
-            console.log('mirrory: ', mirrory)
             let cl = resolution|0
             let rw = resolution/1.7777777778|0
             let buffer = document.createElement('canvas')
@@ -1322,7 +1319,6 @@
             if(customTex){
               ret = [...ret, processSphere(customResource.img)]
             }
-            console.log(ret)
             return ret
           }
           
