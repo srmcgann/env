@@ -1205,13 +1205,13 @@
               isVid = true
               customResource = {img: document.createElement('video'), loaded: false}
               customResource.img.oncanplay = () => {
-                customResource.img.muted = true
-                customResource.img.loop = true
                 customResource.img.defaultPlaybackRate = customResource.img.playbackRate = playbackRate
                 customResource.img.play()
                 customResource.loaded = true
                 if(latlongImgs.filter(v=>v.loaded).length == 15 && (!customTex || customResource.loaded)) latlongsLoaded = true
               }
+              customResource.img.muted = true
+              customResource.img.loop = true
               customResource.img.src = customTex
             } else {
               customResource = {img: new Image(), loaded: false}
@@ -1269,7 +1269,7 @@
               }
             }
             
-            processSphere = (texture) => {
+            processSphere = texture => {
               if(mirror || mirrorx || mirrory){
                 subBctx.drawImage(texture,0,0,subBuffer.width,subBuffer.height)
                 subdata = subBctx.getImageData(0,0,subBuffer.width,subBuffer.height)
@@ -1327,6 +1327,7 @@
             if(customTex){
               ret = [...ret, processSphere(customResource.img)]
             }
+            consoole.log(ret)
             return ret
           }
           
