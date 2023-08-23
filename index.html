@@ -1352,7 +1352,7 @@
         }
 
         //if(!((t*60|0)%120)) toggle = !toggle
-        if(latlongsLoaded && (isVid || typeof obj != 'undefined')){
+        if(latlongsLoaded && typeof obj != 'undefined'){
           x.fillRect(0,0,c.width=1920/4,c.height=1080/4)
           obj.map(v=>{
             x.beginPath()
